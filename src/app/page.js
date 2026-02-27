@@ -1,15 +1,14 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 
-export default function Home() {
+function Home() {
   return (
     <div>
       <h1>React com Next JS</h1>
     </div>
   );
 }
-import Image from "next/image";
-import styles from "./page.module.css";
+
 
 const Card = () => {
   return (
@@ -21,7 +20,7 @@ const Card = () => {
   );
 }
 
-function Home() {
+function Home2() {
   return (
     <div>
       <h1>React com Next JS</h1>
@@ -30,4 +29,4 @@ function Home() {
 }
 
 
-export default Home2;
+export default Home;
