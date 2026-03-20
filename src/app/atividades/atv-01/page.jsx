@@ -10,6 +10,8 @@ function atividade01 () {
 Ao longo da história, grandes avanços nasceram de perguntas simples. Quando alguém decide observar com atenção, experimentar algo diferente ou desafiar uma ideia já aceita, abre-se a porta para o conhecimento. Por isso, cultivar a curiosidade é também cultivar o aprendizado.
 
 Em um mundo em constante transformação, manter a mente aberta e o desejo de aprender é essencial. Cada nova informação, cada experiência e cada conversa podem ampliar nossa visão e ajudar a construir um futuro mais criativo, consciente e cheio de possibilidades.</p>
+        
+        
         </div>
     )
 }
