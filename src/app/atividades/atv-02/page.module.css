@@ -1,0 +1,30 @@
+.text {
+       animation: mudarCor 3s infinite;
+}
+@keyframes mudarCor {
+    0% {
+        background-color: #ff0000;
+    }
+    25% {
+        background-color: #ff7300;
+    }
+    50% {
+        background-color: #00ff00;
+    }
+    75% {
+        background-color: #007bff;
+    }
+    100% {
+        background-color: #ff0000;
+    }
+}
+
+.borda {
+      
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
