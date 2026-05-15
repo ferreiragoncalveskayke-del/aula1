@@ -1,105 +1,67 @@
 'use client'
 
-import { useState } from 'react';
-import styles from './page.module.css';
+import { useState } from 'react'
+import styles from './page.module.css'
 
-function Atividade04() {
-  const [inputValue, setInputValue] = useState({
-    id: '',
-    quantidade: '',
-    produto: ''
-  });
-  const [dadosCadastrados, setDadosCadastrados] = useState([]);
+export default function FormComponent() {
+  const [texto, setTexto] = useState('')
+  const [lista, setLista] = useState([])
+  const [editando, setEditando] = useState(null)
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!inputValue.produto || !inputValue.quantidade) return;
+  function handleSubmit(e) {
+    e.preventDefault()
+    if (!texto) return
 
-    const novoItem = { ...inputValue, id: Date.now() };
-    setDadosCadastrados([...dadosCadastrados, novoItem]);
+    if (editando !== null) {
+      const novaLista = [...lista]
+      novaLista[editando] = texto
+      setLista(novaLista)
+      setEditando(null)
+    } else {
+      setLista([...lista, texto])
+    }
 
-    setInputValue({ id: '', quantidade: '', produto: '' });
-  };
-
-  // 🔥 NOVA FUNÇÃO (remover item)
-  const removerItem = (id) => {
-    const novaLista = dadosCadastrados.filter(item => item.id !== id);
-    setDadosCadastrados(novaLista);
-    // editar 67
-    const [editandoId, setEditandoId] = useState(null);
-    const editarItem = (item) => {
-  setInputValue(item);
-  setEditandoId(item.id);
-};
-
- const handleSubmit = (e) => {
-  e.preventDefault();
-  if (!inputValue.produto || !inputValue.quantidade) return;
-
-  if (editandoId) {
-    // Atualiza item existente
-    const listaAtualizada = dadosCadastrados.map(item =>
-      item.id === editandoId ? inputValue : item
-    );
-    setDadosCadastrados(listaAtualizada);
-    setEditandoId(null);
-  } else {
-    // Cria novo item
-    const novoItem = { ...inputValue, id: Date.now() };
-    setDadosCadastrados([...dadosCadastrados, novoItem]);
+    setTexto('')
   }
 
-  setInputValue({ id: '', quantidade: '', produto: '' });
-};
- <li key={item.id} className={styles.linha}>
- </li>
- 
+  function editarItem(index) {
+    setTexto(lista[index])
+    setEditando(index)
+  }
 
-  };
+  function excluirItem(index) {
+    setLista(lista.filter((_, i) => i !== index))
+  }
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.container}>
-        <h1>Lista de Compras</h1>
+    <div className={styles.container}>
+      <h1 className={styles.titulo}>Atividade 5 CRUD</h1>
 
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <input
-            type="number"
-            value={inputValue.quantidade}
-            onChange={(e) => setInputValue({ ...inputValue, quantidade: e.target.value })}
-            placeholder="Qtd"
-          />
-          <input
-            type="text"
-            value={inputValue.produto}
-            onChange={(e) => setInputValue({ ...inputValue, produto: e.target.value })}
-            placeholder="Produto..."
-          />
-          <button type="submit">Adicionar</button>
-        </form>
+      <form onSubmit={handleSubmit} className={styles.formulario}>
+        <input
+          type="text"
+          placeholder="Digite algo..."
+          value={texto}
+          onChange={e => setTexto(e.target.value)}
+        />
 
-        {dadosCadastrados.length > 0 && <h2>Itens adicionados</h2>}
+        <button type="submit">
+          {editando !== null ? 'Salvar' : '+ Adicionar'}
+        </button>
+      </form>
 
-        <ul className={styles.lista}>
-          {dadosCadastrados.map((item) => (
-            <li key={item.id} className={styles.linha}>
-              <span className={styles.conteudo}>
-                {item.quantidade}x {item.produto}
-              </span>
+      <div className={styles.lista}>
+        {lista.map((item, index) => (
+          <div key={index} className={styles.item}>
+            <span className={styles.textoItem}>{item}</span>
 
-              {/* 🗑️ BOTÃO DE EXCLUIR */}
-              <button
-                className={styles.deleteBtn}
-                onClick={() => removerItem(item.id)}
-              >
-                🗑️
-              </button>
-            </li>
-          ))}
-        </ul>
+            <div className={styles.botoes}>
+              <button onClick={() => editarItem(index)}>✏️</button>
+              <button onClick={() => excluirItem(index)}>🗑️</button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
-  );
+  )
 }
-
-export default Atividade04;
